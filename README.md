@@ -15,3 +15,22 @@ bin/magento setup:upgrade
 
 TBD (describe content management in the admin ui)
 
+## Extending / Custom provider for /.well-known/ content
+
+If more control is needed, the extension also provides the `Renttek\WellKnown\Model\WellKnownProviderInterface` to implement custom providers for /.well-known/ content.
+To do that, implement the `WellKnownProviderInterface` in your own code and register the provider with the `Renttek\WellKnown\Model\WellKnownProviderPool`.
+
+`frontend/di.xml`:
+```xml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">rguments>
+    </type>
+    <type name="Renttek\WellKnown\Model\WellKnownProviderPool">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="my_custom_provider" xsi:type="object" sortOrder="10">Vendor\Module\Model\CustomProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
+```
