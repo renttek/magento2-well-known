@@ -1,0 +1,15 @@
+{
+    "renttek_wellknown_content": {
+        "column": {
+            "content_id": true,
+            "identifier": true,
+            "content": true
+        },
+        "index": {
+            "RENTTEK_WELLKNOWN_IDENTIFIER": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

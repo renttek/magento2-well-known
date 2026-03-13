@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#2 \$area of method Magento\\Framework\\App\\Router\\ActionList\:\:get\(\) expects string, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Router.php
+
+		-
+			message: '#^Return type \(Magento\\Framework\\App\\ActionInterface\|null\) of method Renttek\\WellKnown\\Controller\\Router\:\:match\(\) should be covariant with return type \(Magento\\Framework\\App\\ActionInterface\) of method Magento\\Framework\\App\\RouterInterface\:\:match\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Controller/Router.php

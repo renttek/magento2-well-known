@@ -1,0 +1,48 @@
+{
+    "name": "renttek/magento2-well-known",
+    "type": "magento2-module",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Renttek\\WellKnown\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Julian Nuß",
+            "email": "juliann@renttek.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.50",
+        "symplify/easy-coding-standard": "^13.0",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.3",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "bitexpert/phpstan-magento": "^0.42.0",
+        "mage-os/framework": "^2.2",
+        "mage-os/module-store": "^2.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true,
+            "mage-os/composer-dependency-version-audit-plugin": false
+        }
+    },
+    "repositories": {
+        "mage-os": {
+            "type": "composer",
+            "url": "https://repo.mage-os.org/"
+        }
+    },
+    "require": {
+        "beberlei/assert": "^3.3"
+    }
+}

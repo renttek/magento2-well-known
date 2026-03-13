@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="renttek-well-known" xsi:type="array">
+                    <item name="class" xsi:type="string">Renttek\WellKnown\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">9</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Renttek\WellKnown\Model\WellKnownProviderPool">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="renttek_wellknown_databaseprovider" xsi:type="object" sortOrder="100">Renttek\WellKnown\Model\DatabaseProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

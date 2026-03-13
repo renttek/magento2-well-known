@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="renttek_wellknown_content">
+        <column name="content_id" xsi:type="int"        nullable="false" unsigned="true" identity="true"/>
+        <column name="identifier" xsi:type="varchar"    nullable="false" length="255"/>
+        <column name="content"    xsi:type="mediumtext" nullable="false"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="content_id"/>
+        </constraint>
+
+        <index referenceId="RENTTEK_WELLKNOWN_CONTENT_IDENTIFIER" indexType="btree">
+            <column name="identifier"/>
+        </index>
+    </table>
+</schema>
