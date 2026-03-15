@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="hyva_admin_grid"/>
+    <head>
+        <css src="Renttek_WellKnown::css/additional-styles.css" defer="defer" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Hyva\Admin\Block\Adminhtml\HyvaGrid" name="wellknown-content-grid">
+                <block name="store_list_renderer" template="Renttek_WellKnown::grid/store_list.phtml">
+                    <arguments>
+                        <argument name="store_list" xsi:type="object">Renttek\WellKnown\ViewModel\Adminhtml\StoreList</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

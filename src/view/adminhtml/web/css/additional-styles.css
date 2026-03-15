@@ -1,0 +1,16 @@
+.wellknown-store-list ul {
+    padding-left: 1rem !important;
+}
+
+.wellknown-store-list .website {
+    font-weight: bolder;
+}
+
+.wellknown-store-list .group {
+    font-weight: bold;
+}
+
+.wellknown-store-list .store {
+    font-weight: normal;
+}
+

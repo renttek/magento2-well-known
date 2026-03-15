@@ -6,8 +6,8 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Renttek_WellKnown::config"
-                                      title=".well-known"
+                            <resource id="Renttek_WellKnown::manage"
+                                      title="/.well-known/"
                                       translate="title"
                                       sortOrder="100"/>
                         </resource>

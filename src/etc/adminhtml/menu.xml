@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+        <add id="Renttek_WellKnown::title"
+             title="/.well-known/"
+             translate="title"
+             module="Renttek_WellKnown"
+             sortOrder="1000"
+             resource="Renttek_WellKnown::manage"
+             dependsOnModule="Renttek_WellKnown"
+             parent="Magento_Backend::stores"/>
+
+        <add id="Renttek_WellKnown::manage_content"
+             title="Manage Content"
+             translate="title"
+             module="Renttek_WellKnown"
+             sortOrder="100"
+             resource="Renttek_WellKnown::manage"
+             dependsOnModule="Renttek_WellKnown"
+             parent="Renttek_WellKnown::title"
+             action="renttekwellknown/content/index"/>
+	</menu>
+</config>

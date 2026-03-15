@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+use Hyva\Admin\ViewModel\HyvaGrid\Cell;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Renttek\WellKnown\ViewModel\Adminhtml\StoreList;
+
+/** @var StoreList $storeList */
+$storeList = $block->getData('store_list');
+
+/** @var Cell $cell */
+$cell = $block->getData('cell');
+
+/** @var list<int> $storeIds */
+$storeIds = $cell->getRawValue();
+
+if ($storeList->isAllStores($storeIds)):
+?>
+    <?= $escaper->escapeHtml(__('All Stores')) ?>
+<?php else:?>
+<ul class="wellknown-store-list">
+    <?php foreach ($storeList->getStoreTree($storeIds) as $website): ?>
+    <li class="website">
+        <?= $escaper->escapeHtml($website['name']) ?>
+        <ul>
+            <?php foreach ($website['groups'] as $group): ?>
+            <li class="group">
+                <?= $escaper->escapeHtml($group['name']) ?>
+                <ul class="store">
+                    <?php foreach ($group['stores'] as $store): ?>
+                    <li><?= $escaper->escapeHtml($store['name']) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </li>
+            <?php endforeach ?>
+        </ul>
+    </li>
+    <?php endforeach ?>
+</ul>
+<?php endif ?>

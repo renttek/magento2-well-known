@@ -3,9 +3,9 @@
     <system>
         <section id="renttek_wellknown" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
-            <label>.well-known</label>
+            <label>/.well-known/</label>
             <tab>general</tab>
-            <resource>Renttek_WellKnown::config</resource>
+            <resource>Renttek_WellKnown::manage</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">

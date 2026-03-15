@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<grid xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Hyva_Admin:etc/hyva-grid.xsd">
+    <source>
+        <arrayProvider>Renttek\WellKnown\Model\HyvaAdmin\GridContentProvider</arrayProvider>
+    </source>
+    <columns>
+        <include keepAllSourceColumns="false">
+            <column name="content_id"
+                    label="ID"
+                    sortable="true"
+                    sortOrder="10"/>
+            <column name="identifier"
+                    label="Identifier"
+                    sortable="true"
+                    sortOrder="20"/>
+            <column name="store_ids"
+                    label="Stores"
+                    sortable="true"
+                    sortOrder="30"
+                    rendererBlockName="store_list_renderer"/>
+        </include>
+    </columns>
+    <actions idColumn="content_id">
+        <action id="edit"   label="Edit"   url="*/*/edit"   idParam="content_id"/>
+        <action id="delete" label="Delete" url="*/*/delete" idParam="content_id"/>
+    </actions>
+    <navigation>
+        <buttons>
+            <button id="add" label="Add" url="*/*/edit"/>
+        </buttons>
+    </navigation>
+</grid>
