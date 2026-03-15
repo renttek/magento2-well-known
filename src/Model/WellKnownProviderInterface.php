@@ -8,7 +8,7 @@ use Renttek\WellKnown\DTO;
 
 interface WellKnownProviderInterface
 {
-    public function provides(string $identifier): bool;
+    public function provides(string $identifier, ?int $storeId = null): bool;
 
-    public function getContent(string $identifier): ?DTO\Content;
+    public function getContent(string $identifier, ?int $storeId = null): ?DTO\Content;
 }

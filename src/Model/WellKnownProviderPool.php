@@ -20,11 +20,11 @@ class WellKnownProviderPool
         return $this->getProvider($identifier) !== null;
     }
 
-    public function getProvider(string $identifier): ?WellKnownProviderInterface
+    public function getProvider(string $identifier, ?int $storeId = null): ?WellKnownProviderInterface
     {
         return array_find(
             $this->providers,
-            static fn(WellKnownProviderInterface $p): bool => $p->provides($identifier),
+            static fn(WellKnownProviderInterface $p): bool => $p->provides($identifier, $storeId),
         );
     }
 }

@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Casting to int something that''s already int\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Controller/Index/Index.php
+
+		-
 			message: '#^Parameter \#2 \$area of method Magento\\Framework\\App\\Router\\ActionList\:\:get\(\) expects string, null given\.$#'
 			identifier: argument.type
 			count: 1

@@ -15,7 +15,7 @@ class DatabaseProvider implements WellKnownProviderInterface
         private readonly GetContentByIdentifier $getContentByIdentifier,
     ) {}
 
-    public function provides(string $identifier): bool
+    public function provides(string $identifier, ?int $storeId = null): bool
     {
         return in_array(
             $identifier,
@@ -24,8 +24,8 @@ class DatabaseProvider implements WellKnownProviderInterface
         );
     }
 
-    public function getContent(string $identifier): ?DTO\Content
+    public function getContent(string $identifier, ?int $storeId = null): ?DTO\Content
     {
-        return $this->getContentByIdentifier->execute($identifier);
+        return $this->getContentByIdentifier->execute($identifier, $storeId);
     }
 }

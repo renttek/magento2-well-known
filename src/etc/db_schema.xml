@@ -13,4 +13,30 @@
             <column name="identifier"/>
         </index>
     </table>
+
+    <table name="renttek_wellknown_content_store">
+        <column name="store_id"   xsi:type="smallint" nullable="false" unsigned="true"/>
+        <column name="content_id" xsi:type="int"      nullable="false" unsigned="true"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="store_id"/>
+            <column name="content_id"/>
+        </constraint>
+
+        <constraint xsi:type="foreign"
+                    referenceId="FK__CONTENT_STORE__CONTENT"
+                    table="renttek_wellknown_content_store"
+                    column="content_id"
+                    referenceTable="renttek_wellknown_content"
+                    referenceColumn="content_id"
+                    onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign"
+                    referenceId="FK__CONTENT_STORE__STORE"
+                    table="renttek_wellknown_content_store"
+                    column="store_id"
+                    referenceTable="store"
+                    referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+    </table>
 </schema>

@@ -6,10 +6,22 @@
             "content": true
         },
         "index": {
-            "RENTTEK_WELLKNOWN_IDENTIFIER": true
+            "RENTTEK_WELLKNOWN_IDENTIFIER": true,
+            "RENTTEK_WELLKNOWN_CONTENT_IDENTIFIER": true
         },
         "constraint": {
             "PRIMARY": true
+        }
+    },
+    "renttek_wellknown_content_store": {
+        "column": {
+            "store_id": true,
+            "content_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_7D97686635D63C76400231FF54830608": true,
+            "RENTTEK_WELLKNOWN_CONTENT_STORE_STORE_ID_STORE_STORE_ID": true
         }
     }
 }

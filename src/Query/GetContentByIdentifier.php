@@ -7,23 +7,32 @@ namespace Renttek\WellKnown\Query;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\DB\Select;
 use Renttek\WellKnown\DTO;
 use Renttek\WellKnown\Model\Table;
+
+use function sprintf;
 
 class GetContentByIdentifier
 {
     public function __construct(
         private readonly ResourceConnection $resourceConnection,
+        private readonly Modifier\AddStoreFilter $addStoreFilter,
     ) {}
 
-    public function execute(string $identifier): ?DTO\Content
+    public function execute(string $identifier, ?int $storeId = null): ?DTO\Content
     {
         $connection = $this->resourceConnection->getConnection('read');
         $table      = $this->resourceConnection->getTableName(Table\Content::TABLE);
 
         $query = $connection->select()
             ->from(['c' => $table])
-            ->where('identifier = ?', $identifier);
+            ->where(sprintf('c.%s = ?', Table\Content::FIELD_IDENTIFIER), $identifier)
+            ->limit(1);
+
+        if ($storeId !== null) {
+            $this->addStoreFilter->execute($query, $storeId);
+        }
 
         $content = $connection->fetchRow($query);
 

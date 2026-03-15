@@ -8,6 +8,7 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Store\Model\StoreManagerInterface;
 use Renttek\WellKnown\Model\WellKnownProviderPool;
 
 class Index implements HttpGetActionInterface
@@ -15,6 +16,7 @@ class Index implements HttpGetActionInterface
     public function __construct(
         private readonly RequestInterface $request,
         private readonly WellKnownProviderPool $providerPool,
+        private readonly StoreManagerInterface $storeManager,
         private readonly ResultFactory $resultPageFactory,
     ) {}
 
@@ -30,7 +32,10 @@ class Index implements HttpGetActionInterface
             return $this->renderContent('ERROR: no provider found for identifier ' . $identifier, 500);
         }
 
-        $content = $provider->getContent($identifier)?->content;
+        /** @noinspection PhpUnhandledExceptionInspection */
+        /** @noinspection PhpCastIsUnnecessaryInspection */
+        $storeId = (int) $this->storeManager->getStore()->getId();
+        $content = $provider->getContent($identifier, $storeId)?->content;
         if ($content === null) {
             return $this->renderContent('ERROR: could not fetch content for identifier ' . $identifier, 500);
         }
