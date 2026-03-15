@@ -20,10 +20,13 @@ class StoreList implements ArgumentInterface
         private readonly StoreTree $storeTree,
     ) {}
 
+    /**
+     * @param list<int> $storeIds
+     */
     public function isAllStores(array $storeIds): bool
     {
         return $storeIds === []
-            || array_any($storeIds, fn(int $s) => $s === 0);
+            || array_any($storeIds, fn(int $s): bool => $s === 0);
     }
 
     /**

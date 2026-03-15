@@ -11,30 +11,30 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * @phpstan-type StoreData array{id: int, name: string}
- * @phpstan-type GroupData array{name: string, stores: non-empty-list<StoreData>}
- * @phpstan-type WebsiteData array{name: string, groups: non-empty-list<GroupData>}
+ * @phpstan-type GroupData array{name: string, stores: list<StoreData>}
+ * @phpstan-type WebsiteData array{name: string, groups: list<GroupData>}
  */
 class StoreTree
 {
     /**
      * @var list<StoreInterface>
      */
-    private readonly array $stores;
+    private array $stores;
 
     /**
      * @var list<GroupInterface>
      */
-    private readonly array $groups;
+    private array $groups;
 
     /**
      * @var list<WebsiteInterface>
      */
-    private readonly array $websites;
+    private array $websites;
 
     /**
      * @phpstan-var list<WebsiteData>
      */
-    private readonly array $fullTree;
+    private array $fullTree;
 
     public function __construct(
         private readonly StoreManagerInterface $storeManager,
@@ -45,9 +45,9 @@ class StoreTree
      */
     public function getFullTree(): array
     {
-        return array_map(
+        return $this->fullTree ??= array_map(
             $this->getWebsiteData(...),
-            $this->getAllWebsites()
+            $this->getAllWebsites(),
         );
     }
 
@@ -67,11 +67,11 @@ class StoreTree
                     static function ($group) use ($storeIds) {
                         $group['stores'] = array_filter(
                             $group['stores'],
-                            static fn($s) => in_array($s['id'], $storeIds, true)
+                            static fn(array $s): bool => in_array($s['id'], $storeIds, true),
                         );
                         return $group;
                     },
-                    $website['groups']
+                    $website['groups'],
                 );
                 return $website;
             },
@@ -83,14 +83,15 @@ class StoreTree
             static function ($website) {
                 $website['groups'] = array_filter(
                     $website['groups'],
-                    static fn($g) => $g['stores'] !== []);
+                    static fn(array $g): bool => $g['stores'] !== [],
+                );
                 return $website;
             },
-            $tree
+            $tree,
         );
 
         // prune websites
-        $tree = array_filter($tree, static fn($w) => $w['groups'] !== []);
+        $tree = array_filter($tree, static fn(array $w): bool => $w['groups'] !== []);
 
         return array_values($tree);
     }
@@ -148,9 +149,11 @@ class StoreTree
      */
     private function getStoresByGroupId(int $groupId): array
     {
-        return array_filter(
-            $this->getAllStores(),
-            static fn(StoreInterface $s) => $groupId === (int)$s->getStoreGroupId(),
+        return array_values(
+            array_filter(
+                $this->getAllStores(),
+                static fn(StoreInterface $s): bool => $groupId === (int)$s->getStoreGroupId(),
+            )
         );
     }
 
@@ -167,9 +170,11 @@ class StoreTree
      */
     private function getGroupsByWebsiteId(int $websiteId): array
     {
-        return array_filter(
-            $this->getAllGroups(),
-            static fn(GroupInterface $g) => $websiteId === (int)$g->getWebsiteId(),
+        return array_values(
+            array_filter(
+                $this->getAllGroups(),
+                static fn(GroupInterface $g): bool => $websiteId === (int)$g->getWebsiteId(),
+            ),
         );
     }
 

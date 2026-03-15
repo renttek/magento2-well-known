@@ -1,6 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Parameter \#1 \$label of method Magento\\Backend\\Model\\View\\Result\\Page\:\:addBreadcrumb\(\) expects string, Magento\\Framework\\Phrase given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Controller/Adminhtml/Content/Index.php
+
+		-
+			message: '#^Parameter \#1 \$prefix of method Magento\\Framework\\View\\Page\\Title\:\:prepend\(\) expects string, Magento\\Framework\\Phrase given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Adminhtml/Content/Index.php
+
+		-
+			message: '#^Parameter \#2 \$title of method Magento\\Backend\\Model\\View\\Result\\Page\:\:addBreadcrumb\(\) expects string, Magento\\Framework\\Phrase given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Controller/Adminhtml/Content/Index.php
+
+		-
 			message: '#^Casting to int something that''s already int\.$#'
 			identifier: cast.useless
 			count: 1
@@ -17,3 +35,15 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: src/Controller/Router.php
+
+		-
+			message: '#^Casting to int something that''s already int\.$#'
+			identifier: cast.useless
+			count: 5
+			path: src/Service/StoreTree.php
+
+		-
+			message: '#^Method Renttek\\WellKnown\\Service\\StoreTree\:\:getFilteredTree\(\) should return list\<array\{name\: string, groups\: list\<array\{name\: string, stores\: list\<array\{id\: int, name\: string\}\>\}\>\}\> but returns list\<array\{name\: string, groups\: non\-empty\-array\<int\<0, max\>, array\{name\: string, stores\: non\-empty\-array\<int\<0, max\>, array\{id\: int, name\: string\}\>\}\>\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Service/StoreTree.php

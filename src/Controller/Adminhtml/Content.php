@@ -17,4 +17,3 @@ abstract class Content extends Action
         $resultPage->setActiveMenu(self::MENU_ID);
     }
 }
-
