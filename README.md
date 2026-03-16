@@ -1,5 +1,9 @@
 # Renttek_WellKnown
 
+> [!IMPORTANT]
+> This extension is WIP and not finished yet.
+> The current state of missing features can be seen in the TODO.md
+
 This extension adds a dedicated section to the Admin Panel for managing "files" within the /.well-known/ directory.
 It allows you to quickly create and serve plain-text or JSON content for specific paths (such as apple-developer-merchantid-domain-association or security.txt) without needing to touch the server's filesystem.
 
