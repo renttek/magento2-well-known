@@ -13,5 +13,6 @@ class Content
 
     public const string FIELD_ID         = 'content_id';
     public const string FIELD_IDENTIFIER = 'identifier';
+    public const string FIELD_TYPE       = 'type';
     public const string FIELD_CONTENT    = 'content';
 }

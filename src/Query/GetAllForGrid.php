@@ -27,7 +27,11 @@ class GetAllForGrid
         $query = $connection->select()
             ->from(
                 ['c' => $contentTable],
-                [Table\Content::FIELD_ID, Table\Content::FIELD_IDENTIFIER],
+                [
+                    Table\Content::FIELD_ID,
+                    Table\Content::FIELD_IDENTIFIER,
+                    Table\Content::FIELD_TYPE,
+                ],
             )
             ->joinLeft(
                 ['cs' => $contentStoreTable],
@@ -45,7 +49,7 @@ class GetAllForGrid
             )
             ->group('c.' . Table\ContentStore::FIELD_CONTENT_ID);
 
-        /** @var array<array-key, array{content_id: string, identifier: string, store_ids: string|null}> $rows */
+        /** @var array<array-key, array{content_id: string, identifier: string, type: string, store_ids: string|null}> $rows */
         $rows = $connection->fetchAssoc($query);
 
         $rows = array_map($this->convertContentId(...), $rows);
@@ -55,9 +59,9 @@ class GetAllForGrid
     }
 
     /**
-     * @param array{content_id: string, identifier: string, store_ids: string|null} $row
+     * @param array{content_id: string, identifier: string, type: string, store_ids: string|null} $row
      *
-     * @return array{content_id: int, identifier: string, store_ids: string|null}
+     * @return array{content_id: int, identifier: string, type: string, store_ids: string|null}
      */
     private function convertContentId(array $row): array
     {
@@ -67,9 +71,9 @@ class GetAllForGrid
     }
 
     /**
-     * @param array{content_id: int, identifier: string, store_ids: string|null} $row
+     * @param array{content_id: int, identifier: string, type: string, store_ids: string|null} $row
      *
-     * @return array{content_id: int, identifier: string, store_ids: list<int>}
+     * @return array{content_id: int, identifier: string, type: string, store_ids: list<int>}
      */
     private function convertStoreIds(array $row): array
     {

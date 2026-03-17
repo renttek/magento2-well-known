@@ -3,7 +3,8 @@
         "column": {
             "content_id": true,
             "identifier": true,
-            "content": true
+            "content": true,
+            "type": true
         },
         "index": {
             "RENTTEK_WELLKNOWN_IDENTIFIER": true,

@@ -7,7 +7,6 @@ namespace Renttek\WellKnown\Query;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Magento\Framework\App\ResourceConnection;
-use Magento\Framework\DB\Select;
 use Renttek\WellKnown\DTO;
 use Renttek\WellKnown\Model\Table;
 
@@ -47,6 +46,9 @@ class GetContentByIdentifier
 
             Assertion::keyExists($content, Table\Content::FIELD_IDENTIFIER);
             Assertion::string($content[Table\Content::FIELD_IDENTIFIER]);
+
+            Assertion::keyExists($content, Table\Content::FIELD_TYPE);
+            Assertion::string($content[Table\Content::FIELD_TYPE]);
 
             Assertion::keyExists($content, Table\Content::FIELD_CONTENT);
             Assertion::string($content[Table\Content::FIELD_CONTENT]);

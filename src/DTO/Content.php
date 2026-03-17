@@ -11,6 +11,7 @@ class Content
     public function __construct(
         public readonly int    $id,
         public readonly string $identifier,
+        public readonly Type   $type,
         public readonly string $content,
     ) {}
 
@@ -22,6 +23,7 @@ class Content
         return new self(
             id        : (int) $content[Table\Content::FIELD_ID],
             identifier: $content[Table\Content::FIELD_IDENTIFIER],
+            type      : Type::fromString($content[Table\Content::FIELD_TYPE]),
             content   : $content[Table\Content::FIELD_CONTENT],
         );
     }

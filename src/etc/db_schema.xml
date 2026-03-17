@@ -3,6 +3,7 @@
     <table name="renttek_wellknown_content">
         <column name="content_id" xsi:type="int"        nullable="false" unsigned="true" identity="true"/>
         <column name="identifier" xsi:type="varchar"    nullable="false" length="255"/>
+        <column name="type"       xsi:type="varchar"    nullable="false" length="16" default="plain"/>
         <column name="content"    xsi:type="mediumtext" nullable="false"/>
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
