@@ -105,7 +105,7 @@ class StoreTree
             'name'   => $website->getName(),
             'groups' => array_map(
                 $this->getGroupData(...),
-                $this->getGroupsByWebsiteId((int)$website->getId()),
+                $this->getGroupsByWebsiteId((int) $website->getId()),
             ),
         ];
     }
@@ -119,7 +119,7 @@ class StoreTree
             'name'   => $group->getName(),
             'stores' => array_map(
                 $this->getStoreData(...),
-                $this->getStoresByGroupId((int)$group->getId()),
+                $this->getStoresByGroupId((int) $group->getId()),
             ),
         ];
     }
@@ -131,7 +131,7 @@ class StoreTree
     {
         /** @noinspection PhpCastIsUnnecessaryInspection */
         return [
-            'id'   => (int)$store->getId(),
+            'id'   => (int) $store->getId(),
             'name' => $store->getName(),
         ];
     }
@@ -152,8 +152,8 @@ class StoreTree
         return array_values(
             array_filter(
                 $this->getAllStores(),
-                static fn(StoreInterface $s): bool => $groupId === (int)$s->getStoreGroupId(),
-            )
+                static fn(StoreInterface $s): bool => $groupId === (int) $s->getStoreGroupId(),
+            ),
         );
     }
 
@@ -173,7 +173,7 @@ class StoreTree
         return array_values(
             array_filter(
                 $this->getAllGroups(),
-                static fn(GroupInterface $g): bool => $websiteId === (int)$g->getWebsiteId(),
+                static fn(GroupInterface $g): bool => $websiteId === (int) $g->getWebsiteId(),
             ),
         );
     }

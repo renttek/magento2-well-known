@@ -1,22 +1,40 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Parameter \#1 \$label of method Magento\\Backend\\Model\\View\\Result\\Page\:\:addBreadcrumb\(\) expects string, Magento\\Framework\\Phrase given\.$#'
-			identifier: argument.type
-			count: 2
-			path: src/Controller/Adminhtml/Content/Index.php
+			message: '#^Method Renttek\\WellKnown\\Block\\Adminhtml\\Content\\Edit\\BackButton\:\:getButtonData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Block/Adminhtml/Content/Edit/BackButton.php
 
 		-
-			message: '#^Parameter \#1 \$prefix of method Magento\\Framework\\View\\Page\\Title\:\:prepend\(\) expects string, Magento\\Framework\\Phrase given\.$#'
+			message: '#^Method Renttek\\WellKnown\\Block\\Adminhtml\\Content\\Edit\\SaveButton\:\:getButtonData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Block/Adminhtml/Content/Edit/SaveButton.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Controller/Adminhtml/Content/Save.php
+
+		-
+			message: '#^Parameter \#1 \$type of static method Renttek\\WellKnown\\DTO\\Type\:\:fromString\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: src/Controller/Adminhtml/Content/Index.php
+			path: src/Controller/Adminhtml/Content/Save.php
 
 		-
-			message: '#^Parameter \#2 \$title of method Magento\\Backend\\Model\\View\\Result\\Page\:\:addBreadcrumb\(\) expects string, Magento\\Framework\\Phrase given\.$#'
+			message: '#^Parameter \#2 \$identifier of class Renttek\\WellKnown\\DTO\\Content constructor expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 2
-			path: src/Controller/Adminhtml/Content/Index.php
+			count: 1
+			path: src/Controller/Adminhtml/Content/Save.php
+
+		-
+			message: '#^Parameter \#4 \$content of class Renttek\\WellKnown\\DTO\\Content constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Adminhtml/Content/Save.php
 
 		-
 			message: '#^Casting to int something that''s already int\.$#'
@@ -35,6 +53,36 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: src/Controller/Router.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/DTO/Content.php
+
+		-
+			message: '#^Method Renttek\\WellKnown\\DTO\\Content\:\:fromArrayOrNull\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DTO/Content.php
+
+		-
+			message: '#^Method Renttek\\WellKnown\\Model\\DataProvider\\ContentDataProvider\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/DataProvider/ContentDataProvider.php
+
+		-
+			message: '#^Method Renttek\\WellKnown\\Model\\DataProvider\\ContentDataProvider\:\:__construct\(\) has parameter \$meta with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/DataProvider/ContentDataProvider.php
+
+		-
+			message: '#^Method Renttek\\WellKnown\\Model\\DataProvider\\ContentDataProvider\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/DataProvider/ContentDataProvider.php
 
 		-
 			message: '#^Casting to int something that''s already int\.$#'

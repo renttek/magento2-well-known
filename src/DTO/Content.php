@@ -11,36 +11,41 @@ use Renttek\WellKnown\Model\Table;
 class Content
 {
     public function __construct(
-        public readonly int    $id,
+        public readonly ?int   $id,
         public readonly string $identifier,
         public readonly Type   $type,
         public readonly string $content,
     ) {}
 
-    public static function fromArrayOrNull(array $content): ?self
+    public static function fromArrayOrNull(array $data): ?self
     {
         try {
-            Assertion::keyExists($content, Table\Content::FIELD_ID);
-            Assertion::string($content[Table\Content::FIELD_ID]);
-            Assertion::numeric($content[Table\Content::FIELD_ID]);
+            $contentId = $data[Table\Content::FIELD_ID] ?? null;
+            Assertion::nullOrDigit($contentId);
+            $contentId = $contentId !== null
+                ? (int) $contentId
+                : null;
 
-            Assertion::keyExists($content, Table\Content::FIELD_IDENTIFIER);
-            Assertion::string($content[Table\Content::FIELD_IDENTIFIER]);
+            $identifier = $data[Table\Content::FIELD_IDENTIFIER] ?? null;
+            Assertion::string($identifier);
+            Assertion::notBlank($identifier);
 
-            Assertion::keyExists($content, Table\Content::FIELD_TYPE);
-            Assertion::string($content[Table\Content::FIELD_TYPE]);
+            $type = $data[Table\Content::FIELD_TYPE] ?? null;
+            Assertion::string($type);
+            Assertion::notBlank($type);
+            $type = Type::fromString($type);
 
-            Assertion::keyExists($content, Table\Content::FIELD_CONTENT);
-            Assertion::string($content[Table\Content::FIELD_CONTENT]);
+            $content = $data[Table\Content::FIELD_CONTENT] ?? null;
+            Assertion::string($content);
         } catch (AssertionFailedException) {
             return null;
         }
 
         return new self(
-            id        : (int) $content[Table\Content::FIELD_ID],
-            identifier: $content[Table\Content::FIELD_IDENTIFIER],
-            type      : Type::fromString($content[Table\Content::FIELD_TYPE]),
-            content   : $content[Table\Content::FIELD_CONTENT],
+            id        : $contentId,
+            identifier: $identifier,
+            type      : $type,
+            content   : $content,
         );
     }
 }

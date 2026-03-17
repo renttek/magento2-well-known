@@ -35,7 +35,7 @@ class Index implements HttpGetActionInterface
 
         /** @noinspection PhpUnhandledExceptionInspection */
         /** @noinspection PhpCastIsUnnecessaryInspection */
-        $storeId = (int)$this->storeManager->getStore()->getId();
+        $storeId = (int) $this->storeManager->getStore()->getId();
         $content = $provider->getContent($identifier, $storeId);
         if ($content?->content === null) {
             return $this->renderError('ERROR: could not fetch content for identifier ' . $identifier, 500);
@@ -74,7 +74,7 @@ class Index implements HttpGetActionInterface
             DTO\Type::Html => 'text/html',
             DTO\Type::Json => 'application/json',
             DTO\Type::Xml  => 'application/xml',
-            default        => 'text/plain'
+            default        => 'text/plain',
         };
     }
 }
