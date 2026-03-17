@@ -13,10 +13,14 @@
                     label="Identifier"
                     sortable="true"
                     sortOrder="20"/>
+            <column name="type"
+                    label="Content Type"
+                    sortable="true"
+                    sortOrder="30"/>
             <column name="store_ids"
                     label="Stores"
                     sortable="true"
-                    sortOrder="30"
+                    sortOrder="40"
                     rendererBlockName="store_list_renderer"/>
         </include>
     </columns>

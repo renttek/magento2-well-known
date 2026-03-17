@@ -14,7 +14,7 @@ class GridContentProvider implements HyvaGridArrayProviderInterface
     ) {}
 
     /**
-     * @return list<array{content_id: int, identifier: string, store_ids: list<int>}>
+     * @return list<array{content_id: int, identifier: string, type: string, store_ids: list<int>}>
      */
     public function getHyvaGridData(): array
     {
