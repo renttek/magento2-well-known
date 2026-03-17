@@ -34,28 +34,10 @@ class GetContentByIdentifier
         }
 
         $content = $connection->fetchRow($query);
-
         if (!is_array($content)) {
             return null;
         }
 
-        try {
-            Assertion::keyExists($content, Table\Content::FIELD_ID);
-            Assertion::string($content[Table\Content::FIELD_ID]);
-            Assertion::numeric($content[Table\Content::FIELD_ID]);
-
-            Assertion::keyExists($content, Table\Content::FIELD_IDENTIFIER);
-            Assertion::string($content[Table\Content::FIELD_IDENTIFIER]);
-
-            Assertion::keyExists($content, Table\Content::FIELD_TYPE);
-            Assertion::string($content[Table\Content::FIELD_TYPE]);
-
-            Assertion::keyExists($content, Table\Content::FIELD_CONTENT);
-            Assertion::string($content[Table\Content::FIELD_CONTENT]);
-        } catch (AssertionFailedException) {
-            return null;
-        }
-
-        return DTO\Content::fromArray($content);
+        return DTO\Content::fromArrayOrNull($content);
     }
 }

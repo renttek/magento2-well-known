@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Renttek\WellKnown\DTO;
 
+use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Renttek\WellKnown\Model\Table;
 
 class Content
@@ -15,11 +17,25 @@ class Content
         public readonly string $content,
     ) {}
 
-    /**
-     * @param array{content_id: int|string, identifier: string, content: string} $content
-     */
-    public static function fromArray(array $content): self
+    public static function fromArrayOrNull(array $content): ?self
     {
+        try {
+            Assertion::keyExists($content, Table\Content::FIELD_ID);
+            Assertion::string($content[Table\Content::FIELD_ID]);
+            Assertion::numeric($content[Table\Content::FIELD_ID]);
+
+            Assertion::keyExists($content, Table\Content::FIELD_IDENTIFIER);
+            Assertion::string($content[Table\Content::FIELD_IDENTIFIER]);
+
+            Assertion::keyExists($content, Table\Content::FIELD_TYPE);
+            Assertion::string($content[Table\Content::FIELD_TYPE]);
+
+            Assertion::keyExists($content, Table\Content::FIELD_CONTENT);
+            Assertion::string($content[Table\Content::FIELD_CONTENT]);
+        } catch (AssertionFailedException) {
+            return null;
+        }
+
         return new self(
             id        : (int) $content[Table\Content::FIELD_ID],
             identifier: $content[Table\Content::FIELD_IDENTIFIER],

@@ -19,6 +19,7 @@ class AddStoreFilter
                 $contentTableAlias,
                 Table\Content::FIELD_ID,
             ),
+            [],
         );
         $query->where(sprintf(
             '(cs.%1$s IN (0, %2$d) OR cs.%1$s IS NULL)',
