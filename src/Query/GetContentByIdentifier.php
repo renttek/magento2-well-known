@@ -26,6 +26,11 @@ class GetContentByIdentifier
 
         $query = $connection->select()
             ->from(['c' => $table])
+            ->joinLeft(
+                ['cs' => Table\ContentStore::TABLE],
+                sprintf('c.%s = cs.%s', Table\Content::FIELD_ID, Table\ContentStore::FIELD_CONTENT_ID),
+                [sprintf('GROUP_CONCAT(cs.%s) as %s', Table\ContentStore::FIELD_STORE_ID, Table\Content::JOIN_STORE_IDS)],
+            )
             ->where(sprintf('c.%s = ?', Table\Content::FIELD_IDENTIFIER), $identifier)
             ->limit(1);
 
@@ -37,6 +42,13 @@ class GetContentByIdentifier
         if (!is_array($content)) {
             return null;
         }
+
+        /** @var string $storeIds */
+        $storeIds = $content[Table\Content::JOIN_STORE_IDS] ?? '';
+        $storeIds = explode(',', $storeIds);
+        $storeIds = array_filter($storeIds, static fn(string $s): bool => $s !== '');
+        $storeIds = array_map(intval(...), $storeIds);
+        $content[Table\Content::JOIN_STORE_IDS] = $storeIds;
 
         return DTO\Content::fromArrayOrNull($content);
     }

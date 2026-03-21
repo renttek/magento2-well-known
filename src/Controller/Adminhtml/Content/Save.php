@@ -23,8 +23,8 @@ class Save extends Content
     public function execute(): Redirect
     {
         try {
-            $dto = $this->getCreateOrUpdateDto();
-            $this->createOrUpdateContent->execute($dto);
+            $content = $this->getContent();
+            $this->createOrUpdateContent->execute($content);
         } catch (Exception) {
         }
 
@@ -33,27 +33,33 @@ class Save extends Content
             ->setPath('*/*/index');
     }
 
-    private function getCreateOrUpdateDto(): DTO\CreateOrUpdateContent
+    private function getContent(): DTO\Content
     {
         [
             'content_id' => $contentId,
             'identifier' => $identifier,
             'type'       => $type,
             'content'    => $content,
+            'store_ids'  => $storeIds,
         ] = $this->getRequest()->getParams();
+
+        /** @var list<string|int>|string|null $storeIds */
+        if (!is_array($storeIds)) {
+            $storeIds = [];
+        }
+
+        $storeIds = array_map(intval(...), $storeIds);
 
         $contentId = ctype_digit((string) $contentId)
             ? (int) $contentId
             : null;
 
-        return new DTO\CreateOrUpdateContent(
-            new DTO\Content(
-                $contentId,
-                $identifier,
-                DTO\Type::fromString($type),
-                $content,
-            ),
-            [],
+        return new DTO\Content(
+            $contentId,
+            $identifier,
+            DTO\Type::fromString($type),
+            $content,
+            $storeIds,
         );
     }
 }

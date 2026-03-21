@@ -12,9 +12,9 @@ class AddStoreFilter
     public function execute(Select $query, int $storeId, string $contentTableAlias = 'c'): void
     {
         $query->joinLeft(
-            ['cs' => Table\ContentStore::TABLE],
+            ['cs_filter' => Table\ContentStore::TABLE],
             sprintf(
-                'cs.%s = %s.%s',
+                'cs_filter.%s = %s.%s',
                 Table\ContentStore::FIELD_CONTENT_ID,
                 $contentTableAlias,
                 Table\Content::FIELD_ID,
@@ -22,10 +22,10 @@ class AddStoreFilter
             [],
         );
         $query->where(sprintf(
-            '(cs.%1$s IN (0, %2$d) OR cs.%1$s IS NULL)',
+            '(cs_filter.%1$s IN (0, %2$d) OR cs_filter.%1$s IS NULL)',
             Table\ContentStore::FIELD_STORE_ID,
             $storeId,
         ));
-        $query->order(sprintf('cs.%s DESC', Table\ContentStore::FIELD_STORE_ID));
+        $query->order(sprintf('cs_filter.%s DESC', Table\ContentStore::FIELD_STORE_ID));
     }
 }

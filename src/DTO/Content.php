@@ -15,6 +15,10 @@ class Content
         public readonly string $identifier,
         public readonly Type   $type,
         public readonly string $content,
+        /**
+         * @var list<int>
+         */
+        public readonly array  $storeIds,
     ) {}
 
     public static function fromArrayOrNull(array $data): ?self
@@ -37,6 +41,11 @@ class Content
 
             $content = $data[Table\Content::FIELD_CONTENT] ?? null;
             Assertion::string($content);
+
+            /** @var list<int> $storeIds */
+            $storeIds = $data[Table\Content::JOIN_STORE_IDS] ?? [];
+            Assertion::isArray($storeIds);
+            Assertion::allInteger($storeIds);
         } catch (AssertionFailedException) {
             return null;
         }
@@ -46,6 +55,7 @@ class Content
             identifier: $identifier,
             type      : $type,
             content   : $content,
+            storeIds  : $storeIds,
         );
     }
 }

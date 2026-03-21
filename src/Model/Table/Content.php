@@ -15,4 +15,6 @@ class Content
     public const string FIELD_IDENTIFIER = 'identifier';
     public const string FIELD_TYPE       = 'type';
     public const string FIELD_CONTENT    = 'content';
+
+    public const string JOIN_STORE_IDS   = 'store_ids';
 }

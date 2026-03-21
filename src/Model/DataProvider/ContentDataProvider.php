@@ -57,6 +57,10 @@ class ContentDataProvider extends AbstractDataProvider
             'identifier' => $content->identifier,
             'type'       => $content->type->value,
             'content'    => $content->content,
+            'store_ids'  => array_map(
+                strval(...),
+                $content->storeIds,
+            ),
         ];
 
         return $this->loadedData;
