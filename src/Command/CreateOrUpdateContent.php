@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Renttek\WellKnown\Command;
 
+use Exception;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Renttek\WellKnown\DTO;
 use Renttek\WellKnown\Model\Table;
 
@@ -17,9 +19,27 @@ class CreateOrUpdateContent
     public function execute(DTO\Content $content): void
     {
         $connection = $this->resourceConnection->getConnection('write');
+        $storeIds   = array_filter(
+            $content->storeIds,
+            static fn(int $storeId) => $storeId !== 0,
+        );
 
         // TODO: check collision with store assignment
 
+        try {
+            $connection->beginTransaction();
+
+            $contentId = $this->createOrUpdateContent($connection, $content);
+            $this->updateStoreAssignments($connection, $contentId, $storeIds);
+
+            $connection->commit();
+        } catch (Exception) {
+            $connection->rollBack();
+        }
+    }
+
+    private function createOrUpdateContent(AdapterInterface $connection, DTO\Content $content): int
+    {
         $connection->insertOnDuplicate(
             table : Table\Content::TABLE,
             data  : [
@@ -35,13 +55,17 @@ class CreateOrUpdateContent
             ],
         );
 
-        $contentId = $content->id;
-        if ($contentId === null) {
-            $lastInsertId = (int) $connection->fetchOne('SELECT LAST_INSERT_ID()');
-            $contentId    = $lastInsertId;
-        }
+        return $content->id ?? (int)$connection->fetchOne('SELECT LAST_INSERT_ID()');
+    }
 
-        $storeIds = array_filter($content->storeIds, fn (int $storeId) => $storeId !== 0);
+    /**
+     * @param list<int> $storeIds
+     */
+    private function updateStoreAssignments(
+        AdapterInterface $connection,
+        int              $contentId,
+        array            $storeIds,
+    ): void {
         $connection->delete(
             Table\ContentStore::TABLE,
             sprintf('%s = %d', Table\ContentStore::FIELD_CONTENT_ID, $contentId),
