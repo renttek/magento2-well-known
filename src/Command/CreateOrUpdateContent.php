@@ -9,6 +9,7 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Renttek\WellKnown\DTO;
 use Renttek\WellKnown\Model\Table;
+use Renttek\WellKnown\Query;
 
 class CreateOrUpdateContent
 {
@@ -19,12 +20,7 @@ class CreateOrUpdateContent
     public function execute(DTO\Content $content): void
     {
         $connection = $this->resourceConnection->getConnection('write');
-        $storeIds   = array_filter(
-            $content->storeIds,
-            static fn(int $storeId) => $storeId !== 0,
-        );
-
-        // TODO: check collision with store assignment
+        $storeIds   = $this->getStoreIds($content);
 
         try {
             $connection->beginTransaction();
@@ -55,7 +51,7 @@ class CreateOrUpdateContent
             ],
         );
 
-        return $content->id ?? (int)$connection->fetchOne('SELECT LAST_INSERT_ID()');
+        return $content->id ?? (int) $connection->fetchOne('SELECT LAST_INSERT_ID()');
     }
 
     /**
@@ -83,6 +79,19 @@ class CreateOrUpdateContent
                     Table\ContentStore::FIELD_CONTENT_ID => $contentId,
                 ],
                 $storeIds,
+            ),
+        );
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function getStoreIds(DTO\Content $content): array
+    {
+        return array_values(
+            array_filter(
+                $content->storeIds,
+                static fn(int $storeId): bool => $storeId !== 0,
             ),
         );
     }
