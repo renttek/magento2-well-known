@@ -26,6 +26,6 @@ class AddStoreFilter
             Table\ContentStore::FIELD_STORE_ID,
             $storeId,
         ));
-        $query->order(sprintf('cs_filter.%s DESC', Table\ContentStore::FIELD_STORE_ID));
+        $query->order(sprintf('MAX(cs_filter.%s) DESC', Table\ContentStore::FIELD_STORE_ID));
     }
 }

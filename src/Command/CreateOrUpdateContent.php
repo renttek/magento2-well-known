@@ -18,7 +18,6 @@ class CreateOrUpdateContent
     {
         $connection = $this->resourceConnection->getConnection('write');
 
-        // TODO: assign stores
         // TODO: check collision with store assignment
 
         $connection->insertOnDuplicate(
@@ -42,10 +41,16 @@ class CreateOrUpdateContent
             $contentId    = $lastInsertId;
         }
 
+        $storeIds = array_filter($content->storeIds, fn (int $storeId) => $storeId !== 0);
         $connection->delete(
             Table\ContentStore::TABLE,
             sprintf('%s = %d', Table\ContentStore::FIELD_CONTENT_ID, $contentId),
         );
+
+        if ($storeIds === []) {
+            return;
+        }
+
         $connection->insertMultiple(
             Table\ContentStore::TABLE,
             array_map(
@@ -53,7 +58,7 @@ class CreateOrUpdateContent
                     Table\ContentStore::FIELD_STORE_ID   => $storeId,
                     Table\ContentStore::FIELD_CONTENT_ID => $contentId,
                 ],
-                $content->storeIds,
+                $storeIds,
             ),
         );
     }

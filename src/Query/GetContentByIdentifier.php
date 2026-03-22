@@ -32,6 +32,7 @@ class GetContentByIdentifier
                 [sprintf('GROUP_CONCAT(cs.%s) as %s', Table\ContentStore::FIELD_STORE_ID, Table\Content::JOIN_STORE_IDS)],
             )
             ->where(sprintf('c.%s = ?', Table\Content::FIELD_IDENTIFIER), $identifier)
+            ->group(sprintf('c.%s', Table\Content::FIELD_ID))
             ->limit(1);
 
         if ($storeId !== null) {
