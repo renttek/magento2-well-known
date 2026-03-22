@@ -1,9 +1,5 @@
 # Renttek_WellKnown
 
-> [!IMPORTANT]
-> This extension is WIP and not finished yet.
-> The current state of missing features can be seen in the TODO.md
-
 This extension adds a dedicated section to the Admin Panel for managing "files" within the /.well-known/ directory.
 It allows you to quickly create and serve plain-text or JSON content for specific paths (such as apple-developer-merchantid-domain-association or security.txt) without needing to touch the server's filesystem.
 
@@ -17,7 +13,9 @@ bin/magento setup:upgrade
 
 ## Usage
 
-TBD (describe content management in the admin ui)
+Content can be managed int the backend / admin area, under `Stores > /.well-known/ > Manage Content`.
+The `Identifier` of each entry is the path matched against the url: `https://example.com/.well-known/<identifier>`.
+Each entry can also be set to a list of specific stores or global, if no store is set. (with automatic fallback to the global when loading the content)
 
 ## Extending / Custom provider for /.well-known/ content
 
